@@ -9,11 +9,11 @@ tinywebh265对比现有有点如下：
 4、流媒体服务器采用websocket server方式， 所以整个流延时比较小，实时性好;(小于150ms);
 
 # 3 代码
-github地址: [https://github.com/sonysuqin/WasmVideoPlayer](https://github.com/sonysuqin/WasmVideoPlayer).
+github地址: [https://github.com/tinywebh265/tinywebh265]
 
 # 4 demo 演示
 1、开启 websocket server 流媒体端：
-git clone https://github.com/sonysuqin/WasmVideoPlayer;
+git clone https://github.com/tinywebh265/tinywebh265.git;
 cd tinywebh265/ws_server/linux_pc/demo;
 make;
 ./streamapp
