@@ -1,0 +1,48 @@
+函数说明：
+
+/*
+初始化
+userid  用户id
+pkey  用户key 
+demo值为：
+char userid[32] = "TinyWebh265_DemoT";
+char key[64] = "280c2b15a03182684c210f77a8m3845fa0cn";
+
+pworkerjsurl  webworker dec_worker js 路径
+showwidth 显示长度
+showheight 显示高度
+int WsClient_Init(char *userid, char *pkey, char *pworkerjsurl, int showwidth, int showheight) 
+*/
+
+//反初始化
+int WsClient_UnInit() 
+
+/*
+打开ws 流信和显示信息；
+pcurl  "ws://192.168.1.89:8536" wesocket server 流路径；
+channel  通道号；
+
+canvas 显示 视频流位置
+showflag 是否显示
+x y width height
+返回值：streamchannel,本地打开流通道
+*/
+
+int WsClient_OpenStream(char *purl, int channel, int showflag, int x, int y, int width, int height) 
+
+// 关闭所有ws 流信；
+
+int WsClient_CloseStream(int streamchannel) 
+
+//码流是否叠加音频 0 关闭 1 开启
+int WsClient_SetComposition_AudioFlag(int streamchannel, int audioflag)
+
+//切换查看视频通道
+int WsClient_ChangeChannel(int streamchannel,int channel)
+
+
+//设置监听音频通道
+int WsClient_SetPlay_AudioStreamChannel(int streamchannel)
+
+//设置本地流显示信息
+int WsClient_SetShowInfo_StreamChannel(int streamchannel, int showflag, int x, int y, int width, int height) 

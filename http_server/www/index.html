@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+
+    <link rel="icon" href="data:image/ico;base64,aWNv">
+    
+    <script type='text/javascript'>   
+      function ws_int()
+      {
+        var userid = allocate(intArrayFromString("TinyWebh265_DemoT"), 0);
+      	var key = allocate(intArrayFromString("280c2b15a03182684c210f77a8m3845fa0cn"), 0);
+        
+        var url = allocate(intArrayFromString("dec_worker.js"), 0);
+		    _WsClient_Init(userid, key, url, 1280,  720);
+      }
+	
+      var streamchannel = 0;
+      var streamchannelarry = [4];
+      var showchannelcounts = 0;
+      function ws_OpenStream()
+      {
+        //var wsdomain = 'ws://'+document.domain+':8536';
+
+        var  i, x, y, width, height, curstreamchannel;
+        var ptr = allocate(intArrayFromString("ws://192.168.1.125:8536"), 0);
+
+        width = 640;
+        height = 360;
+
+        for(i=0; i<4; i++)
+        {
+          x = 640*(i%2);
+          y = 360*parseInt(i/2);
+          curstreamchannel = _WsClient_OpenStream(ptr, 0, 1, x, y, width,  height);
+
+          if(i == 0)
+            streamchannel = curstreamchannel;
+
+          streamchannelarry[i] = curstreamchannel;
+        }
+		    
+        showchannelcounts = 4;
+      }
+	  
+	    var audioflag = 0;
+	    var channelflag = 0;
+
+      function ws_setaudioparam()
+      {
+        if(audioflag == 0)
+          audioflag = 1;
+        else
+          audioflag = 0;
+			
+        _WsClient_SetComposition_AudioFlag(streamchannel, audioflag);
+      }
+
+      function ws_changechannel()
+      {
+        if(channelflag == 0)
+          channelflag = 1;
+        else
+          channelflag = 0;
+			
+        _WsClient_ChangeChannel(streamchannel, channelflag);
+      }
+
+      function ws_CloseStream()
+      {
+        _WsClient_CloseStream(streamchannel);
+      }
+
+      function canvas_snapfile()
+      {
+        var canvas = document.getElementById("canvas");
+        canvas.toBlob(function(blob) {
+        saveAs(blob, "snap_image.png");
+        });
+      }
+      
+      function canvas_FullScreen(){
+        var canvas = document.getElementById("canvas");
+        if(canvas.requestFullScreen)
+            canvas.requestFullScreen();
+        else if(canvas.webkitRequestFullScreen)
+            canvas.webkitRequestFullScreen();
+        else if(canvas.mozRequestFullScreen)
+            canvas.mozRequestFullScreen();
+      }
+
+      function set_showwindows(){    
+        var i;
+        if(showchannelcounts == 1)
+        {
+          var  x, y, width, height;
+          width = 640;
+          height = 360;
+
+          for(i=0; i<4; i++)
+          {
+            x = 640*(i%2);
+            y = 360*parseInt(i/2);
+            _WsClient_SetShowInfo_StreamChannel(streamchannelarry[i], 1, x, y, width, height);
+          }
+
+          showchannelcounts = 4;
+        }
+        else 
+        {
+          for(i=1; i<4; i++)
+            _WsClient_SetShowInfo_StreamChannel(streamchannelarry[i], 0, 0, 0, 1280, 720);
+
+          _WsClient_SetShowInfo_StreamChannel(streamchannelarry[0], 1, 0, 0, 1280, 720);
+          showchannelcounts = 1;
+        }
+      }
+
+      </script>
+
+
+    <span id='controls'>
+      <span><input type="button" id="Channel_btn" value="Channel" onclick="ws_changechannel()"> </span>
+      <span><input type="button" id="Audio_btn" value="Audio" onclick="ws_setaudioparam()"> </span>
+      <span><input type="button" id="Close_btn" value="Close" onclick="ws_CloseStream()"> </span>
+      <span><input type="button" id="Snap_btn" value="Snap" onclick="canvas_snapfile()"> </span>
+      <span><input type="button" id="MaxScreen" value="MaxScreen" onclick="canvas_FullScreen()"> </span>
+      <span><input type="button" id="ShowW" value="ShowW" onclick="set_showwindows()"> </span>
+    </span>
+
+    <div class="emscripten_border">
+      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    </div>
+   
+    <script type='text/javascript'>
+      var Module = {
+        preRun: [],
+        postRun:(function(){
+          ws_int();
+          ws_OpenStream();
+        }),
+        print: (function(text) {
+          console.log(text);
+        })(),
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+          return canvas;
+        })(),
+        setStatus: function(text) {
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+        }
+      };
+
+      window.onerror = function(event) {
+        // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+        Module.setStatus('Exception thrown, see JavaScript console');
+        //spinnerElement.style.display = 'none';
+        Module.setStatus = function(text) {
+          if (text) console.error('[post-exception status] ' + text);
+        };
+      };
+    </script>
+
+    <script async type="text/javascript" src="tinywsplayer.js"></script>
+    <script async type="text/javascript" src="FileSaver.js"></script>
+    <!-- 
+	  <script async type="text/javascript" src="tinywsplayer.js"></script>
+	  <script async type="text/javascript" src="FileSaver.js"> </script>
+    -->
+  </body>
+</html>
+
+
