@@ -7,7 +7,7 @@ extern "C" {
 
 typedef enum
 {
-	FIRST_THECLIENT_LOGIN=1,   //第一连接并且登录成功；
+	THECLIENT_LOGIN=1,   //有连接并且登录成功；
 	LAST_THECLIENT_DISCONNECT  //最后一个连接断开；
 }ws_cmd_event_e;
 

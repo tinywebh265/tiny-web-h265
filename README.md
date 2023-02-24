@@ -14,7 +14,7 @@ github地址: [https://github.com/tinywebh265/tinywebh265]
 # 4 demo 演示
 1、开启 websocket server 流媒体端：
 git clone https://github.com/tinywebh265/tinywebh265.git;
-cd tinywebh265/ws_server/linux_pc/demo;
+cd tinywebh265/ws_server/demo;
 make;
 ./streamapp
 

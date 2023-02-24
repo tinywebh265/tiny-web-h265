@@ -35,7 +35,7 @@
         {
           x = 640*(i%2);
           y = 360*parseInt(i/2);
-          curstreamchannel = _WsClient_OpenStream(ptr, 0, 1, x, y, width,  height);
+          curstreamchannel = _WsClient_OpenStream(ptr, 0, 1, 1, x, y, width,  height);
 
           if(i == 0)
             streamchannel = curstreamchannel;
@@ -79,7 +79,7 @@
         var canvas = document.getElementById("canvas");
         canvas.toBlob(function(blob) {
         saveAs(blob, "snap_image.png");
-        });
+        }, "image/jpeg", 0.90);
       }
       
       function canvas_FullScreen(){

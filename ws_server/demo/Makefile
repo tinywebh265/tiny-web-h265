@@ -9,7 +9,7 @@ OBJS :=  main.o avfilestream.o
 .PHONY : clean all
 
 default: $(OBJS)                          
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) -L./../lib -lwsserver -lws -lpthread -lm 
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) -L./../libs/gcc -lwsserver -lpthread -lm 
 	
 clean:
 	@rm -f $(OBJS)

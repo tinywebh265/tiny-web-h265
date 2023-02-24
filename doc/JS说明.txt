@@ -21,6 +21,7 @@ int WsClient_UnInit()
 打开ws 流信和显示信息；
 pcurl  "ws://192.168.1.89:8536" wesocket server 流路径；
 channel  通道号；
+reconnectflag 是否重连
 
 canvas 显示 视频流位置
 showflag 是否显示
@@ -28,7 +29,7 @@ x y width height
 返回值：streamchannel,本地打开流通道
 */
 
-int WsClient_OpenStream(char *purl, int channel, int showflag, int x, int y, int width, int height) 
+int WsClient_OpenStream(char *purl, int channel, int reconnectflag, int showflag, int x, int y, int width, int height) 
 
 // 关闭所有ws 流信；
 
